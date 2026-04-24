@@ -38,6 +38,11 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#1A1A1A" },
+      { property: "og:title", content: "Observatoire du Frelon Asiatique — Corrèze & Dordogne" },
+      { name: "twitter:title", content: "Observatoire du Frelon Asiatique — Corrèze & Dordogne" },
+      { name: "description", content: "Frelon Vigilance: Real-time Asian hornet sightings, news, and interventions for Corrèze & Dordogne." },
+      { property: "og:description", content: "Frelon Vigilance: Real-time Asian hornet sightings, news, and interventions for Corrèze & Dordogne." },
+      { name: "twitter:description", content: "Frelon Vigilance: Real-time Asian hornet sightings, news, and interventions for Corrèze & Dordogne." },
     ],
     links: [
       {
