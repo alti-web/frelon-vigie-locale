@@ -10,33 +10,89 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as Dordogne24IndexRouteImport } from './routes/dordogne-24/index'
+import { Route as Correze19IndexRouteImport } from './routes/correze-19/index'
+import { Route as Dordogne24CommuneRouteImport } from './routes/dordogne-24/$commune'
+import { Route as Correze19CommuneRouteImport } from './routes/correze-19/$commune'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Dordogne24IndexRoute = Dordogne24IndexRouteImport.update({
+  id: '/dordogne-24/',
+  path: '/dordogne-24/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Correze19IndexRoute = Correze19IndexRouteImport.update({
+  id: '/correze-19/',
+  path: '/correze-19/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Dordogne24CommuneRoute = Dordogne24CommuneRouteImport.update({
+  id: '/dordogne-24/$commune',
+  path: '/dordogne-24/$commune',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Correze19CommuneRoute = Correze19CommuneRouteImport.update({
+  id: '/correze-19/$commune',
+  path: '/correze-19/$commune',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/correze-19/$commune': typeof Correze19CommuneRoute
+  '/dordogne-24/$commune': typeof Dordogne24CommuneRoute
+  '/correze-19/': typeof Correze19IndexRoute
+  '/dordogne-24/': typeof Dordogne24IndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/correze-19/$commune': typeof Correze19CommuneRoute
+  '/dordogne-24/$commune': typeof Dordogne24CommuneRoute
+  '/correze-19': typeof Correze19IndexRoute
+  '/dordogne-24': typeof Dordogne24IndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/correze-19/$commune': typeof Correze19CommuneRoute
+  '/dordogne-24/$commune': typeof Dordogne24CommuneRoute
+  '/correze-19/': typeof Correze19IndexRoute
+  '/dordogne-24/': typeof Dordogne24IndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/correze-19/$commune'
+    | '/dordogne-24/$commune'
+    | '/correze-19/'
+    | '/dordogne-24/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/correze-19/$commune'
+    | '/dordogne-24/$commune'
+    | '/correze-19'
+    | '/dordogne-24'
+  id:
+    | '__root__'
+    | '/'
+    | '/correze-19/$commune'
+    | '/dordogne-24/$commune'
+    | '/correze-19/'
+    | '/dordogne-24/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Correze19CommuneRoute: typeof Correze19CommuneRoute
+  Dordogne24CommuneRoute: typeof Dordogne24CommuneRoute
+  Correze19IndexRoute: typeof Correze19IndexRoute
+  Dordogne24IndexRoute: typeof Dordogne24IndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +104,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dordogne-24/': {
+      id: '/dordogne-24/'
+      path: '/dordogne-24'
+      fullPath: '/dordogne-24/'
+      preLoaderRoute: typeof Dordogne24IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/correze-19/': {
+      id: '/correze-19/'
+      path: '/correze-19'
+      fullPath: '/correze-19/'
+      preLoaderRoute: typeof Correze19IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dordogne-24/$commune': {
+      id: '/dordogne-24/$commune'
+      path: '/dordogne-24/$commune'
+      fullPath: '/dordogne-24/$commune'
+      preLoaderRoute: typeof Dordogne24CommuneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/correze-19/$commune': {
+      id: '/correze-19/$commune'
+      path: '/correze-19/$commune'
+      fullPath: '/correze-19/$commune'
+      preLoaderRoute: typeof Correze19CommuneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Correze19CommuneRoute: Correze19CommuneRoute,
+  Dordogne24CommuneRoute: Dordogne24CommuneRoute,
+  Correze19IndexRoute: Correze19IndexRoute,
+  Dordogne24IndexRoute: Dordogne24IndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
