@@ -9,38 +9,206 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignalerUnNidRouteImport } from './routes/signaler-un-nid'
+import { Route as DonneesRouteImport } from './routes/donnees'
+import { Route as CartographieRouteImport } from './routes/cartographie'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GuidesIndexRouteImport } from './routes/guides/index'
+import { Route as Dordogne24IndexRouteImport } from './routes/dordogne-24/index'
+import { Route as Correze19IndexRouteImport } from './routes/correze-19/index'
+import { Route as ActualitesIndexRouteImport } from './routes/actualites/index'
+import { Route as GuidesSlugRouteImport } from './routes/guides/$slug'
+import { Route as Dordogne24CommuneRouteImport } from './routes/dordogne-24/$commune'
+import { Route as Correze19CommuneRouteImport } from './routes/correze-19/$commune'
+import { Route as ActualitesSlugRouteImport } from './routes/actualites/$slug'
 
+const SignalerUnNidRoute = SignalerUnNidRouteImport.update({
+  id: '/signaler-un-nid',
+  path: '/signaler-un-nid',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonneesRoute = DonneesRouteImport.update({
+  id: '/donnees',
+  path: '/donnees',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartographieRoute = CartographieRouteImport.update({
+  id: '/cartographie',
+  path: '/cartographie',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesIndexRoute = GuidesIndexRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Dordogne24IndexRoute = Dordogne24IndexRouteImport.update({
+  id: '/dordogne-24/',
+  path: '/dordogne-24/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Correze19IndexRoute = Correze19IndexRouteImport.update({
+  id: '/correze-19/',
+  path: '/correze-19/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActualitesIndexRoute = ActualitesIndexRouteImport.update({
+  id: '/actualites/',
+  path: '/actualites/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesSlugRoute = GuidesSlugRouteImport.update({
+  id: '/guides/$slug',
+  path: '/guides/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Dordogne24CommuneRoute = Dordogne24CommuneRouteImport.update({
+  id: '/dordogne-24/$commune',
+  path: '/dordogne-24/$commune',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Correze19CommuneRoute = Correze19CommuneRouteImport.update({
+  id: '/correze-19/$commune',
+  path: '/correze-19/$commune',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
+  id: '/actualites/$slug',
+  path: '/actualites/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cartographie': typeof CartographieRoute
+  '/donnees': typeof DonneesRoute
+  '/signaler-un-nid': typeof SignalerUnNidRoute
+  '/actualites/$slug': typeof ActualitesSlugRoute
+  '/correze-19/$commune': typeof Correze19CommuneRoute
+  '/dordogne-24/$commune': typeof Dordogne24CommuneRoute
+  '/guides/$slug': typeof GuidesSlugRoute
+  '/actualites/': typeof ActualitesIndexRoute
+  '/correze-19/': typeof Correze19IndexRoute
+  '/dordogne-24/': typeof Dordogne24IndexRoute
+  '/guides/': typeof GuidesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cartographie': typeof CartographieRoute
+  '/donnees': typeof DonneesRoute
+  '/signaler-un-nid': typeof SignalerUnNidRoute
+  '/actualites/$slug': typeof ActualitesSlugRoute
+  '/correze-19/$commune': typeof Correze19CommuneRoute
+  '/dordogne-24/$commune': typeof Dordogne24CommuneRoute
+  '/guides/$slug': typeof GuidesSlugRoute
+  '/actualites': typeof ActualitesIndexRoute
+  '/correze-19': typeof Correze19IndexRoute
+  '/dordogne-24': typeof Dordogne24IndexRoute
+  '/guides': typeof GuidesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cartographie': typeof CartographieRoute
+  '/donnees': typeof DonneesRoute
+  '/signaler-un-nid': typeof SignalerUnNidRoute
+  '/actualites/$slug': typeof ActualitesSlugRoute
+  '/correze-19/$commune': typeof Correze19CommuneRoute
+  '/dordogne-24/$commune': typeof Dordogne24CommuneRoute
+  '/guides/$slug': typeof GuidesSlugRoute
+  '/actualites/': typeof ActualitesIndexRoute
+  '/correze-19/': typeof Correze19IndexRoute
+  '/dordogne-24/': typeof Dordogne24IndexRoute
+  '/guides/': typeof GuidesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cartographie'
+    | '/donnees'
+    | '/signaler-un-nid'
+    | '/actualites/$slug'
+    | '/correze-19/$commune'
+    | '/dordogne-24/$commune'
+    | '/guides/$slug'
+    | '/actualites/'
+    | '/correze-19/'
+    | '/dordogne-24/'
+    | '/guides/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cartographie'
+    | '/donnees'
+    | '/signaler-un-nid'
+    | '/actualites/$slug'
+    | '/correze-19/$commune'
+    | '/dordogne-24/$commune'
+    | '/guides/$slug'
+    | '/actualites'
+    | '/correze-19'
+    | '/dordogne-24'
+    | '/guides'
+  id:
+    | '__root__'
+    | '/'
+    | '/cartographie'
+    | '/donnees'
+    | '/signaler-un-nid'
+    | '/actualites/$slug'
+    | '/correze-19/$commune'
+    | '/dordogne-24/$commune'
+    | '/guides/$slug'
+    | '/actualites/'
+    | '/correze-19/'
+    | '/dordogne-24/'
+    | '/guides/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CartographieRoute: typeof CartographieRoute
+  DonneesRoute: typeof DonneesRoute
+  SignalerUnNidRoute: typeof SignalerUnNidRoute
+  ActualitesSlugRoute: typeof ActualitesSlugRoute
+  Correze19CommuneRoute: typeof Correze19CommuneRoute
+  Dordogne24CommuneRoute: typeof Dordogne24CommuneRoute
+  GuidesSlugRoute: typeof GuidesSlugRoute
+  ActualitesIndexRoute: typeof ActualitesIndexRoute
+  Correze19IndexRoute: typeof Correze19IndexRoute
+  Dordogne24IndexRoute: typeof Dordogne24IndexRoute
+  GuidesIndexRoute: typeof GuidesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signaler-un-nid': {
+      id: '/signaler-un-nid'
+      path: '/signaler-un-nid'
+      fullPath: '/signaler-un-nid'
+      preLoaderRoute: typeof SignalerUnNidRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donnees': {
+      id: '/donnees'
+      path: '/donnees'
+      fullPath: '/donnees'
+      preLoaderRoute: typeof DonneesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cartographie': {
+      id: '/cartographie'
+      path: '/cartographie'
+      fullPath: '/cartographie'
+      preLoaderRoute: typeof CartographieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +216,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dordogne-24/': {
+      id: '/dordogne-24/'
+      path: '/dordogne-24'
+      fullPath: '/dordogne-24/'
+      preLoaderRoute: typeof Dordogne24IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/correze-19/': {
+      id: '/correze-19/'
+      path: '/correze-19'
+      fullPath: '/correze-19/'
+      preLoaderRoute: typeof Correze19IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actualites/': {
+      id: '/actualites/'
+      path: '/actualites'
+      fullPath: '/actualites/'
+      preLoaderRoute: typeof ActualitesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/$slug': {
+      id: '/guides/$slug'
+      path: '/guides/$slug'
+      fullPath: '/guides/$slug'
+      preLoaderRoute: typeof GuidesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dordogne-24/$commune': {
+      id: '/dordogne-24/$commune'
+      path: '/dordogne-24/$commune'
+      fullPath: '/dordogne-24/$commune'
+      preLoaderRoute: typeof Dordogne24CommuneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/correze-19/$commune': {
+      id: '/correze-19/$commune'
+      path: '/correze-19/$commune'
+      fullPath: '/correze-19/$commune'
+      preLoaderRoute: typeof Correze19CommuneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actualites/$slug': {
+      id: '/actualites/$slug'
+      path: '/actualites/$slug'
+      fullPath: '/actualites/$slug'
+      preLoaderRoute: typeof ActualitesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CartographieRoute: CartographieRoute,
+  DonneesRoute: DonneesRoute,
+  SignalerUnNidRoute: SignalerUnNidRoute,
+  ActualitesSlugRoute: ActualitesSlugRoute,
+  Correze19CommuneRoute: Correze19CommuneRoute,
+  Dordogne24CommuneRoute: Dordogne24CommuneRoute,
+  GuidesSlugRoute: GuidesSlugRoute,
+  ActualitesIndexRoute: ActualitesIndexRoute,
+  Correze19IndexRoute: Correze19IndexRoute,
+  Dordogne24IndexRoute: Dordogne24IndexRoute,
+  GuidesIndexRoute: GuidesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
