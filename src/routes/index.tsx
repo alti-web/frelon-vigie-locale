@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   AlertTriangle,
@@ -48,11 +49,17 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const stats = statsGlobales();
-  const lastUpdate = new Date(SIGNALEMENTS[0]?.date ?? Date.now());
-  const minutesAgo = Math.max(
-    1,
-    Math.floor((Date.now() - lastUpdate.getTime()) / 60000),
-  );
+  const lastUpdate = new Date(SIGNALEMENTS[0]?.date ?? new Date().toISOString());
+  const [minutesAgo, setMinutesAgo] = useState<number | null>(null);
+  useEffect(() => {
+    const compute = () =>
+      setMinutesAgo(
+        Math.max(1, Math.floor((Date.now() - lastUpdate.getTime()) / 60000)),
+      );
+    compute();
+    const id = setInterval(compute, 60000);
+    return () => clearInterval(id);
+  }, [lastUpdate]);
   const lastNews = ACTUALITES.slice(0, 4);
 
   return (
@@ -67,7 +74,7 @@ function HomePage() {
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-alert" />
               </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                En direct · dernière mise à jour il y a {minutesAgo} min
+                En direct{minutesAgo !== null ? ` · dernière mise à jour il y a ${minutesAgo} min` : ""}
               </span>
             </div>
 
