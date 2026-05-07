@@ -10,8 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignalerUnNidRouteImport } from './routes/signaler-un-nid'
+import { Route as RgpdRouteImport } from './routes/rgpd'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as DonneesRouteImport } from './routes/donnees'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CartographieRouteImport } from './routes/cartographie'
+import { Route as AccessibiliteRouteImport } from './routes/accessibilite'
+import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as GuidesIndexRouteImport } from './routes/guides/index'
 import { Route as Dordogne24IndexRouteImport } from './routes/dordogne-24/index'
@@ -27,14 +32,39 @@ const SignalerUnNidRoute = SignalerUnNidRouteImport.update({
   path: '/signaler-un-nid',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RgpdRoute = RgpdRouteImport.update({
+  id: '/rgpd',
+  path: '/rgpd',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DonneesRoute = DonneesRouteImport.update({
   id: '/donnees',
   path: '/donnees',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CartographieRoute = CartographieRouteImport.update({
   id: '/cartographie',
   path: '/cartographie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessibiliteRoute = AccessibiliteRouteImport.update({
+  id: '/accessibilite',
+  path: '/accessibilite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AProposRoute = AProposRouteImport.update({
+  id: '/a-propos',
+  path: '/a-propos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -85,8 +115,13 @@ const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/accessibilite': typeof AccessibiliteRoute
   '/cartographie': typeof CartographieRoute
+  '/contact': typeof ContactRoute
   '/donnees': typeof DonneesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/rgpd': typeof RgpdRoute
   '/signaler-un-nid': typeof SignalerUnNidRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/correze-19/$commune': typeof Correze19CommuneRoute
@@ -99,8 +134,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/accessibilite': typeof AccessibiliteRoute
   '/cartographie': typeof CartographieRoute
+  '/contact': typeof ContactRoute
   '/donnees': typeof DonneesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/rgpd': typeof RgpdRoute
   '/signaler-un-nid': typeof SignalerUnNidRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/correze-19/$commune': typeof Correze19CommuneRoute
@@ -114,8 +154,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/accessibilite': typeof AccessibiliteRoute
   '/cartographie': typeof CartographieRoute
+  '/contact': typeof ContactRoute
   '/donnees': typeof DonneesRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/rgpd': typeof RgpdRoute
   '/signaler-un-nid': typeof SignalerUnNidRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/correze-19/$commune': typeof Correze19CommuneRoute
@@ -130,8 +175,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/a-propos'
+    | '/accessibilite'
     | '/cartographie'
+    | '/contact'
     | '/donnees'
+    | '/mentions-legales'
+    | '/rgpd'
     | '/signaler-un-nid'
     | '/actualites/$slug'
     | '/correze-19/$commune'
@@ -144,8 +194,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/a-propos'
+    | '/accessibilite'
     | '/cartographie'
+    | '/contact'
     | '/donnees'
+    | '/mentions-legales'
+    | '/rgpd'
     | '/signaler-un-nid'
     | '/actualites/$slug'
     | '/correze-19/$commune'
@@ -158,8 +213,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/a-propos'
+    | '/accessibilite'
     | '/cartographie'
+    | '/contact'
     | '/donnees'
+    | '/mentions-legales'
+    | '/rgpd'
     | '/signaler-un-nid'
     | '/actualites/$slug'
     | '/correze-19/$commune'
@@ -173,8 +233,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AProposRoute: typeof AProposRoute
+  AccessibiliteRoute: typeof AccessibiliteRoute
   CartographieRoute: typeof CartographieRoute
+  ContactRoute: typeof ContactRoute
   DonneesRoute: typeof DonneesRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
+  RgpdRoute: typeof RgpdRoute
   SignalerUnNidRoute: typeof SignalerUnNidRoute
   ActualitesSlugRoute: typeof ActualitesSlugRoute
   Correze19CommuneRoute: typeof Correze19CommuneRoute
@@ -195,6 +260,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignalerUnNidRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rgpd': {
+      id: '/rgpd'
+      path: '/rgpd'
+      fullPath: '/rgpd'
+      preLoaderRoute: typeof RgpdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/donnees': {
       id: '/donnees'
       path: '/donnees'
@@ -202,11 +281,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DonneesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cartographie': {
       id: '/cartographie'
       path: '/cartographie'
       fullPath: '/cartographie'
       preLoaderRoute: typeof CartographieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accessibilite': {
+      id: '/accessibilite'
+      path: '/accessibilite'
+      fullPath: '/accessibilite'
+      preLoaderRoute: typeof AccessibiliteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/a-propos': {
+      id: '/a-propos'
+      path: '/a-propos'
+      fullPath: '/a-propos'
+      preLoaderRoute: typeof AProposRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -277,8 +377,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AProposRoute: AProposRoute,
+  AccessibiliteRoute: AccessibiliteRoute,
   CartographieRoute: CartographieRoute,
+  ContactRoute: ContactRoute,
   DonneesRoute: DonneesRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
+  RgpdRoute: RgpdRoute,
   SignalerUnNidRoute: SignalerUnNidRoute,
   ActualitesSlugRoute: ActualitesSlugRoute,
   Correze19CommuneRoute: Correze19CommuneRoute,
@@ -292,12 +397,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

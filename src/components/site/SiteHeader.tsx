@@ -10,6 +10,7 @@ const NAV = [
   { to: "/dordogne-24", label: "Dordogne" },
   { to: "/guides", label: "Guides" },
   { to: "/donnees", label: "Données" },
+  { to: "/a-propos", label: "À propos" },
 ] as const;
 
 export function SiteHeader() {
