@@ -134,9 +134,11 @@ export function SiteFooter() {
             indépendante de veille citoyenne.
           </div>
           <div className="flex gap-4 font-mono uppercase tracking-wider">
-            <a href="#" className="hover:text-hornet">Mentions légales</a>
-            <a href="#" className="hover:text-hornet">RGPD</a>
-            <a href="#" className="hover:text-hornet">Accessibilité</a>
+            <Link to="/a-propos" className="hover:text-hornet">À propos</Link>
+            <Link to="/contact" className="hover:text-hornet">Contact</Link>
+            <Link to="/mentions-legales" className="hover:text-hornet">Mentions légales</Link>
+            <Link to="/rgpd" className="hover:text-hornet">RGPD</Link>
+            <Link to="/accessibilite" className="hover:text-hornet">Accessibilité</Link>
           </div>
         </div>
       </div>
