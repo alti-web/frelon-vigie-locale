@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SignalerUnNidRouteImport } from './routes/signaler-un-nid'
 import { Route as RgpdRouteImport } from './routes/rgpd'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
@@ -27,6 +28,11 @@ import { Route as Dordogne24CommuneRouteImport } from './routes/dordogne-24/$com
 import { Route as Correze19CommuneRouteImport } from './routes/correze-19/$commune'
 import { Route as ActualitesSlugRouteImport } from './routes/actualites/$slug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignalerUnNidRoute = SignalerUnNidRouteImport.update({
   id: '/signaler-un-nid',
   path: '/signaler-un-nid',
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/rgpd': typeof RgpdRoute
   '/signaler-un-nid': typeof SignalerUnNidRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/correze-19/$commune': typeof Correze19CommuneRoute
   '/dordogne-24/$commune': typeof Dordogne24CommuneRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/rgpd': typeof RgpdRoute
   '/signaler-un-nid': typeof SignalerUnNidRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/correze-19/$commune': typeof Correze19CommuneRoute
   '/dordogne-24/$commune': typeof Dordogne24CommuneRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/rgpd': typeof RgpdRoute
   '/signaler-un-nid': typeof SignalerUnNidRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/correze-19/$commune': typeof Correze19CommuneRoute
   '/dordogne-24/$commune': typeof Dordogne24CommuneRoute
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/rgpd'
     | '/signaler-un-nid'
+    | '/sitemap.xml'
     | '/actualites/$slug'
     | '/correze-19/$commune'
     | '/dordogne-24/$commune'
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/rgpd'
     | '/signaler-un-nid'
+    | '/sitemap.xml'
     | '/actualites/$slug'
     | '/correze-19/$commune'
     | '/dordogne-24/$commune'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/rgpd'
     | '/signaler-un-nid'
+    | '/sitemap.xml'
     | '/actualites/$slug'
     | '/correze-19/$commune'
     | '/dordogne-24/$commune'
@@ -241,6 +253,7 @@ export interface RootRouteChildren {
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   RgpdRoute: typeof RgpdRoute
   SignalerUnNidRoute: typeof SignalerUnNidRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ActualitesSlugRoute: typeof ActualitesSlugRoute
   Correze19CommuneRoute: typeof Correze19CommuneRoute
   Dordogne24CommuneRoute: typeof Dordogne24CommuneRoute
@@ -253,6 +266,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signaler-un-nid': {
       id: '/signaler-un-nid'
       path: '/signaler-un-nid'
@@ -385,6 +405,7 @@ const rootRouteChildren: RootRouteChildren = {
   MentionsLegalesRoute: MentionsLegalesRoute,
   RgpdRoute: RgpdRoute,
   SignalerUnNidRoute: SignalerUnNidRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ActualitesSlugRoute: ActualitesSlugRoute,
   Correze19CommuneRoute: Correze19CommuneRoute,
   Dordogne24CommuneRoute: Dordogne24CommuneRoute,
