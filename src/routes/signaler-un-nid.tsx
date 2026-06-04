@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Camera, MapPin, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { createSignalement } from "@/lib/signalements.functions";
+import { sendEmailMessage } from "@/lib/email/emailjs";
 
 export const Route = createFileRoute("/signaler-un-nid")({
   head: () => ({
