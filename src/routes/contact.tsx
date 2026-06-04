@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin, AlertTriangle, Newspaper, Users } from "lucide-react";
 import { useState } from "react";
+import { sendEmailMessage } from "@/lib/email/emailjs";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
