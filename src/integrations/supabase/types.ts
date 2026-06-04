@@ -14,16 +14,139 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      signalements: {
+        Row: {
+          adresse: string
+          code_postal: string
+          commune_nom: string | null
+          commune_slug: string | null
+          created_at: string
+          declarant_email: string
+          declarant_nom: string
+          declarant_prenom: string
+          declarant_profil: Database["public"]["Enums"]["signalement_profil"]
+          departement: Database["public"]["Enums"]["signalement_departement"]
+          diametre: string | null
+          hauteur: string | null
+          id: string
+          lat: number | null
+          lng: number | null
+          moderation_status: Database["public"]["Enums"]["signalement_moderation"]
+          photo_url: string | null
+          statut: Database["public"]["Enums"]["signalement_statut"]
+          type: Database["public"]["Enums"]["signalement_type"]
+          updated_at: string
+        }
+        Insert: {
+          adresse: string
+          code_postal: string
+          commune_nom?: string | null
+          commune_slug?: string | null
+          created_at?: string
+          declarant_email: string
+          declarant_nom: string
+          declarant_prenom: string
+          declarant_profil?: Database["public"]["Enums"]["signalement_profil"]
+          departement: Database["public"]["Enums"]["signalement_departement"]
+          diametre?: string | null
+          hauteur?: string | null
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          moderation_status?: Database["public"]["Enums"]["signalement_moderation"]
+          photo_url?: string | null
+          statut?: Database["public"]["Enums"]["signalement_statut"]
+          type: Database["public"]["Enums"]["signalement_type"]
+          updated_at?: string
+        }
+        Update: {
+          adresse?: string
+          code_postal?: string
+          commune_nom?: string | null
+          commune_slug?: string | null
+          created_at?: string
+          declarant_email?: string
+          declarant_nom?: string
+          declarant_prenom?: string
+          declarant_profil?: Database["public"]["Enums"]["signalement_profil"]
+          departement?: Database["public"]["Enums"]["signalement_departement"]
+          diametre?: string | null
+          hauteur?: string | null
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          moderation_status?: Database["public"]["Enums"]["signalement_moderation"]
+          photo_url?: string | null
+          statut?: Database["public"]["Enums"]["signalement_statut"]
+          type?: Database["public"]["Enums"]["signalement_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      signalements_public: {
+        Row: {
+          commune_nom: string | null
+          commune_slug: string | null
+          created_at: string | null
+          departement:
+            | Database["public"]["Enums"]["signalement_departement"]
+            | null
+          diametre: string | null
+          hauteur: string | null
+          id: string | null
+          lat: number | null
+          lng: number | null
+          statut: Database["public"]["Enums"]["signalement_statut"] | null
+          type: Database["public"]["Enums"]["signalement_type"] | null
+        }
+        Insert: {
+          commune_nom?: string | null
+          commune_slug?: string | null
+          created_at?: string | null
+          departement?:
+            | Database["public"]["Enums"]["signalement_departement"]
+            | null
+          diametre?: string | null
+          hauteur?: string | null
+          id?: string | null
+          lat?: number | null
+          lng?: number | null
+          statut?: Database["public"]["Enums"]["signalement_statut"] | null
+          type?: Database["public"]["Enums"]["signalement_type"] | null
+        }
+        Update: {
+          commune_nom?: string | null
+          commune_slug?: string | null
+          created_at?: string | null
+          departement?:
+            | Database["public"]["Enums"]["signalement_departement"]
+            | null
+          diametre?: string | null
+          hauteur?: string | null
+          id?: string | null
+          lat?: number | null
+          lng?: number | null
+          statut?: Database["public"]["Enums"]["signalement_statut"] | null
+          type?: Database["public"]["Enums"]["signalement_type"] | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      signalement_departement: "19" | "24"
+      signalement_moderation: "pending" | "approved" | "rejected"
+      signalement_profil:
+        | "habitant"
+        | "apiculteur"
+        | "mairie"
+        | "desinsectiseur"
+      signalement_statut: "signale" | "confirme" | "detruit"
+      signalement_type: "primaire" | "secondaire" | "piege" | "attaque-rucher"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +273,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      signalement_departement: ["19", "24"],
+      signalement_moderation: ["pending", "approved", "rejected"],
+      signalement_profil: [
+        "habitant",
+        "apiculteur",
+        "mairie",
+        "desinsectiseur",
+      ],
+      signalement_statut: ["signale", "confirme", "detruit"],
+      signalement_type: ["primaire", "secondaire", "piege", "attaque-rucher"],
+    },
   },
 } as const
