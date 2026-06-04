@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Camera, MapPin, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { createSignalement } from "@/lib/signalements.functions";
+import { sendEmailMessage } from "@/lib/email/emailjs";
 
 export const Route = createFileRoute("/signaler-un-nid")({
   head: () => ({
@@ -125,6 +126,26 @@ function SignalerPage() {
           lng: null,
         },
       });
+
+      const message = [
+        "=== Nouveau signalement de nid ===",
+        `Type: ${form.type}`,
+        `Département: ${form.departement}`,
+        `Adresse: ${form.adresse}`,
+        `Code postal: ${form.codePostal}`,
+        `Hauteur: ${form.hauteur || "—"}`,
+        `Diamètre: ${form.diametre || "—"}`,
+        "",
+        "--- Déclarant ---",
+        `${form.prenom} ${form.nom} (${form.profil})`,
+        `Email: ${form.email}`,
+      ].join("\n");
+      try {
+        await sendEmailMessage(message);
+      } catch (mailErr) {
+        console.error("EmailJS notification failed:", mailErr);
+      }
+
       setDone(true);
     } catch (err) {
       console.error(err);

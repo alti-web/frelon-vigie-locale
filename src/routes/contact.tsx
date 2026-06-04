@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin, AlertTriangle, Newspaper, Users } from "lucide-react";
 import { useState } from "react";
+import { sendEmailMessage } from "@/lib/email/emailjs";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -52,6 +53,35 @@ const CANAUX = [
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    setSending(true);
+    const fd = new FormData(e.currentTarget);
+    const message = [
+      "=== Nouveau message de contact ===",
+      `Nom: ${fd.get("nom") || ""}`,
+      `Email: ${fd.get("email") || ""}`,
+      `Organisation: ${fd.get("org") || "—"}`,
+      `Sujet: ${fd.get("sujet") || "—"}`,
+      "",
+      "Message:",
+      String(fd.get("message") || ""),
+    ].join("\n");
+    try {
+      await sendEmailMessage(message);
+      setSent(true);
+    } catch (err) {
+      console.error(err);
+      setError("L'envoi a échoué. Réessayez dans un instant.");
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <div className="container-edit max-w-5xl py-14">
       <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-hornet">
@@ -117,10 +147,7 @@ function ContactPage() {
         </div>
 
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSent(true);
-          }}
+          onSubmit={onSubmit}
           className="md:col-span-3 space-y-5 rounded-2xl border border-border bg-card p-7"
         >
           {sent ? (
@@ -144,7 +171,7 @@ function ContactPage() {
                 <label className="mb-2 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
                   Sujet
                 </label>
-                <select className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm focus:border-hornet focus:outline-none">
+                <select name="sujet" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm focus:border-hornet focus:outline-none">
                   <option>Demande générale</option>
                   <option>Demande presse</option>
                   <option>Partenariat commune</option>
@@ -157,6 +184,7 @@ function ContactPage() {
                   Message
                 </label>
                 <textarea
+                  name="message"
                   rows={6}
                   required
                   className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm focus:border-hornet focus:outline-none"
@@ -169,11 +197,17 @@ function ContactPage() {
                 </Link>
                 .
               </p>
+              {error && (
+                <div className="rounded-md border border-alert/40 bg-alert/10 px-3 py-2 text-xs text-alert">
+                  {error}
+                </div>
+              )}
               <button
                 type="submit"
-                className="w-full rounded-md bg-hornet px-5 py-3 text-sm font-semibold text-hornet-foreground hover:bg-hornet/90"
+                disabled={sending}
+                className="w-full rounded-md bg-hornet px-5 py-3 text-sm font-semibold text-hornet-foreground hover:bg-hornet/90 disabled:opacity-60"
               >
-                Envoyer le message
+                {sending ? "Envoi…" : "Envoyer le message"}
               </button>
             </>
           )}
