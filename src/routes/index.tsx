@@ -64,6 +64,9 @@ function HomePage() {
   }, [lastUpdate, hasData]);
   const lastNews = ACTUALITES.slice(0, 4);
   const pct = (n: number) => (stats.total > 0 ? Math.round((n / stats.total) * 100) : 0);
+  const topCommune = [...COMMUNES].sort(
+    (a, b) => b.signalements12mois - a.signalements12mois,
+  )[0];
 
   return (
     <>
