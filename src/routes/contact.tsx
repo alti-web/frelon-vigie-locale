@@ -147,10 +147,7 @@ function ContactPage() {
         </div>
 
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSent(true);
-          }}
+          onSubmit={onSubmit}
           className="md:col-span-3 space-y-5 rounded-2xl border border-border bg-card p-7"
         >
           {sent ? (
