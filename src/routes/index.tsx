@@ -49,9 +49,11 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const stats = statsGlobales();
+  const hasData = stats.total > 0;
   const lastUpdate = new Date(SIGNALEMENTS[0]?.date ?? new Date().toISOString());
   const [minutesAgo, setMinutesAgo] = useState<number | null>(null);
   useEffect(() => {
+    if (!hasData) return;
     const compute = () =>
       setMinutesAgo(
         Math.max(1, Math.floor((Date.now() - lastUpdate.getTime()) / 60000)),
@@ -59,8 +61,12 @@ function HomePage() {
     compute();
     const id = setInterval(compute, 60000);
     return () => clearInterval(id);
-  }, [lastUpdate]);
+  }, [lastUpdate, hasData]);
   const lastNews = ACTUALITES.slice(0, 4);
+  const pct = (n: number) => (stats.total > 0 ? Math.round((n / stats.total) * 100) : 0);
+  const topCommune = [...COMMUNES].sort(
+    (a, b) => b.signalements12mois - a.signalements12mois,
+  )[0];
 
   return (
     <>
@@ -74,7 +80,7 @@ function HomePage() {
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-alert" />
               </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                En direct{minutesAgo !== null ? ` · dernière mise à jour il y a ${minutesAgo} min` : ""}
+                En attente des premiers signalements{minutesAgo !== null ? ` · dernière mise à jour il y a ${minutesAgo} min` : ""}
               </span>
             </div>
 
@@ -173,7 +179,7 @@ function HomePage() {
               <StatTile
                 label="Détruits"
                 value={stats.detruits}
-                trend={`${Math.round((stats.detruits / stats.total) * 100)} %`}
+                trend={`${pct(stats.detruits)} %`}
                 variant="success"
                 icon={CheckCircle2}
                 delay={0.15}
@@ -327,19 +333,19 @@ function HomePage() {
           <div className="grid gap-4">
             <StatTile
               label="Top commune"
-              value={COMMUNES.sort((a, b) => b.signalements12mois - a.signalements12mois)[0].nom}
-              trend={`${COMMUNES.sort((a, b) => b.signalements12mois - a.signalements12mois)[0].signalements12mois} signalements`}
+              value={hasData ? topCommune.nom : "—"}
+              trend={hasData ? `${topCommune.signalements12mois} signalements` : "en attente"}
               variant="ink"
             />
             <StatTile
               label="Pic saisonnier"
               value="Septembre"
-              trend="+187 % vs moyenne"
+              trend="estimation FREDON"
               variant="alert"
             />
             <StatTile
               label="Taux destruction"
-              value={`${Math.round((stats.detruits / stats.total) * 100)} %`}
+              value={hasData ? `${pct(stats.detruits)} %` : "—"}
               trend="objectif > 90 %"
               variant="success"
             />
