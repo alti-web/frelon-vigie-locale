@@ -330,19 +330,19 @@ function HomePage() {
           <div className="grid gap-4">
             <StatTile
               label="Top commune"
-              value={COMMUNES.sort((a, b) => b.signalements12mois - a.signalements12mois)[0].nom}
-              trend={`${COMMUNES.sort((a, b) => b.signalements12mois - a.signalements12mois)[0].signalements12mois} signalements`}
+              value={hasData ? topCommune.nom : "—"}
+              trend={hasData ? `${topCommune.signalements12mois} signalements` : "en attente"}
               variant="ink"
             />
             <StatTile
               label="Pic saisonnier"
               value="Septembre"
-              trend="+187 % vs moyenne"
+              trend="estimation FREDON"
               variant="alert"
             />
             <StatTile
               label="Taux destruction"
-              value={`${Math.round((stats.detruits / stats.total) * 100)} %`}
+              value={hasData ? `${pct(stats.detruits)} %` : "—"}
               trend="objectif > 90 %"
               variant="success"
             />
