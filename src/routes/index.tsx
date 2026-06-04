@@ -49,9 +49,11 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const stats = statsGlobales();
+  const hasData = stats.total > 0;
   const lastUpdate = new Date(SIGNALEMENTS[0]?.date ?? new Date().toISOString());
   const [minutesAgo, setMinutesAgo] = useState<number | null>(null);
   useEffect(() => {
+    if (!hasData) return;
     const compute = () =>
       setMinutesAgo(
         Math.max(1, Math.floor((Date.now() - lastUpdate.getTime()) / 60000)),
@@ -59,8 +61,9 @@ function HomePage() {
     compute();
     const id = setInterval(compute, 60000);
     return () => clearInterval(id);
-  }, [lastUpdate]);
+  }, [lastUpdate, hasData]);
   const lastNews = ACTUALITES.slice(0, 4);
+  const pct = (n: number) => (stats.total > 0 ? Math.round((n / stats.total) * 100) : 0);
 
   return (
     <>
