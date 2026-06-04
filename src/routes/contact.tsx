@@ -197,11 +197,17 @@ function ContactPage() {
                 </Link>
                 .
               </p>
+              {error && (
+                <div className="rounded-md border border-alert/40 bg-alert/10 px-3 py-2 text-xs text-alert">
+                  {error}
+                </div>
+              )}
               <button
                 type="submit"
-                className="w-full rounded-md bg-hornet px-5 py-3 text-sm font-semibold text-hornet-foreground hover:bg-hornet/90"
+                disabled={sending}
+                className="w-full rounded-md bg-hornet px-5 py-3 text-sm font-semibold text-hornet-foreground hover:bg-hornet/90 disabled:opacity-60"
               >
-                Envoyer le message
+                {sending ? "Envoi…" : "Envoyer le message"}
               </button>
             </>
           )}
