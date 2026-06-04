@@ -126,6 +126,26 @@ function SignalerPage() {
           lng: null,
         },
       });
+
+      const message = [
+        "=== Nouveau signalement de nid ===",
+        `Type: ${form.type}`,
+        `Département: ${form.departement}`,
+        `Adresse: ${form.adresse}`,
+        `Code postal: ${form.codePostal}`,
+        `Hauteur: ${form.hauteur || "—"}`,
+        `Diamètre: ${form.diametre || "—"}`,
+        "",
+        "--- Déclarant ---",
+        `${form.prenom} ${form.nom} (${form.profil})`,
+        `Email: ${form.email}`,
+      ].join("\n");
+      try {
+        await sendEmailMessage(message);
+      } catch (mailErr) {
+        console.error("EmailJS notification failed:", mailErr);
+      }
+
       setDone(true);
     } catch (err) {
       console.error(err);
