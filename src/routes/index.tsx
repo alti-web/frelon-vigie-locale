@@ -77,7 +77,7 @@ function HomePage() {
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-alert" />
               </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                En direct{minutesAgo !== null ? ` · dernière mise à jour il y a ${minutesAgo} min` : ""}
+                En attente des premiers signalements{minutesAgo !== null ? ` · dernière mise à jour il y a ${minutesAgo} min` : ""}
               </span>
             </div>
 
