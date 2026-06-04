@@ -98,7 +98,7 @@ export function CommunePage({ slug }: { slug: string }) {
             <StatTile
               label="Détruits"
               value={c.nidsDetruits}
-              trend={`${Math.round((c.nidsDetruits / c.signalements12mois) * 100)} %`}
+              trend={`${c.signalements12mois > 0 ? Math.round((c.nidsDetruits / c.signalements12mois) * 100) : 0} %`}
               variant="success"
               icon={CheckCircle2}
             />
