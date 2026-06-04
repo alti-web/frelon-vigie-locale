@@ -176,7 +176,7 @@ function HomePage() {
               <StatTile
                 label="Détruits"
                 value={stats.detruits}
-                trend={`${Math.round((stats.detruits / stats.total) * 100)} %`}
+                trend={`${pct(stats.detruits)} %`}
                 variant="success"
                 icon={CheckCircle2}
                 delay={0.15}
