@@ -53,6 +53,35 @@ const CANAUX = [
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    setSending(true);
+    const fd = new FormData(e.currentTarget);
+    const message = [
+      "=== Nouveau message de contact ===",
+      `Nom: ${fd.get("nom") || ""}`,
+      `Email: ${fd.get("email") || ""}`,
+      `Organisation: ${fd.get("org") || "—"}`,
+      `Sujet: ${fd.get("sujet") || "—"}`,
+      "",
+      "Message:",
+      String(fd.get("message") || ""),
+    ].join("\n");
+    try {
+      await sendEmailMessage(message);
+      setSent(true);
+    } catch (err) {
+      console.error(err);
+      setError("L'envoi a échoué. Réessayez dans un instant.");
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <div className="container-edit max-w-5xl py-14">
       <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-hornet">
