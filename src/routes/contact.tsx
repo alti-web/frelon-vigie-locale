@@ -171,7 +171,7 @@ function ContactPage() {
                 <label className="mb-2 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
                   Sujet
                 </label>
-                <select className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm focus:border-hornet focus:outline-none">
+                <select name="sujet" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm focus:border-hornet focus:outline-none">
                   <option>Demande générale</option>
                   <option>Demande presse</option>
                   <option>Partenariat commune</option>
