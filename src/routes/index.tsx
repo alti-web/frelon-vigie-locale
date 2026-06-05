@@ -297,7 +297,7 @@ function HomePage() {
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {Object.values(DEPARTEMENTS).map((d) => {
-              const sigDept = SIGNALEMENTS.filter((s) => s.departement === d.code);
+              const sigDept = liveSignalements.filter((s) => s.departement === d.code);
               const detr = sigDept.filter((s) => s.statut === "detruit").length;
               return (
                 <Link
