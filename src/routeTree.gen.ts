@@ -16,6 +16,7 @@ import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as DonneesRouteImport } from './routes/donnees'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CartographieRouteImport } from './routes/cartographie'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccessibiliteRouteImport } from './routes/accessibilite'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as IndexRouteImport } from './routes/index'
@@ -61,6 +62,11 @@ const ContactRoute = ContactRouteImport.update({
 const CartographieRoute = CartographieRouteImport.update({
   id: '/cartographie',
   path: '/cartographie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccessibiliteRoute = AccessibiliteRouteImport.update({
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/accessibilite': typeof AccessibiliteRoute
+  '/admin': typeof AdminRoute
   '/cartographie': typeof CartographieRoute
   '/contact': typeof ContactRoute
   '/donnees': typeof DonneesRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/accessibilite': typeof AccessibiliteRoute
+  '/admin': typeof AdminRoute
   '/cartographie': typeof CartographieRoute
   '/contact': typeof ContactRoute
   '/donnees': typeof DonneesRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/accessibilite': typeof AccessibiliteRoute
+  '/admin': typeof AdminRoute
   '/cartographie': typeof CartographieRoute
   '/contact': typeof ContactRoute
   '/donnees': typeof DonneesRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/accessibilite'
+    | '/admin'
     | '/cartographie'
     | '/contact'
     | '/donnees'
@@ -206,6 +216,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/accessibilite'
+    | '/admin'
     | '/cartographie'
     | '/contact'
     | '/donnees'
@@ -226,6 +237,7 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/accessibilite'
+    | '/admin'
     | '/cartographie'
     | '/contact'
     | '/donnees'
@@ -247,6 +259,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AProposRoute: typeof AProposRoute
   AccessibiliteRoute: typeof AccessibiliteRoute
+  AdminRoute: typeof AdminRoute
   CartographieRoute: typeof CartographieRoute
   ContactRoute: typeof ContactRoute
   DonneesRoute: typeof DonneesRoute
@@ -313,6 +326,13 @@ declare module '@tanstack/react-router' {
       path: '/cartographie'
       fullPath: '/cartographie'
       preLoaderRoute: typeof CartographieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/accessibilite': {
@@ -399,6 +419,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AProposRoute: AProposRoute,
   AccessibiliteRoute: AccessibiliteRoute,
+  AdminRoute: AdminRoute,
   CartographieRoute: CartographieRoute,
   ContactRoute: ContactRoute,
   DonneesRoute: DonneesRoute,

@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { HornetMap } from "@/components/site/HornetMap";
-import { SIGNALEMENTS, statsGlobales } from "@/lib/data/signalements";
+import { listApprovedSignalements } from "@/lib/signalements.functions";
+import { toSignalements } from "@/lib/signalements-mapper";
 
 export const Route = createFileRoute("/cartographie")({
   head: () => ({
@@ -22,7 +25,13 @@ export const Route = createFileRoute("/cartographie")({
 });
 
 function CartoPage() {
-  const stats = statsGlobales();
+  const fetchPublic = useServerFn(listApprovedSignalements);
+  const { data } = useQuery({
+    queryKey: ["public-signalements"],
+    queryFn: () => fetchPublic(),
+  });
+  const signalements = toSignalements(data?.items ?? []);
+
   return (
     <div className="container-edit py-12">
       <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-hornet">
@@ -32,11 +41,11 @@ function CartoPage() {
         Carte des signalements
       </h1>
       <p className="mt-4 max-w-2xl text-muted-foreground">
-        {stats.total} signalements géolocalisés sur les 90 derniers jours.
+        {signalements.length} signalements géolocalisés approuvés.
         Cliquez un pin pour le détail, filtrez par statut au-dessus de la carte.
       </p>
       <div className="mt-8">
-        <HornetMap signalements={SIGNALEMENTS} height="640px" />
+        <HornetMap signalements={signalements} height="640px" />
       </div>
     </div>
   );

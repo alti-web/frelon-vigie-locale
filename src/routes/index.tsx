@@ -20,6 +20,10 @@ import { NewsCard } from "@/components/site/NewsCard";
 import { CommuneSearch } from "@/components/site/CommuneSearch";
 import { EvolutionChart } from "@/components/site/EvolutionChart";
 import { formatNombre } from "@/lib/format";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { listApprovedSignalements } from "@/lib/signalements.functions";
+import { toSignalements } from "@/lib/signalements-mapper";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,9 +52,31 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const stats = statsGlobales();
+  const fetchPublic = useServerFn(listApprovedSignalements);
+  const { data: liveData } = useQuery({
+    queryKey: ["public-signalements"],
+    queryFn: () => fetchPublic(),
+  });
+  const liveSignalements = toSignalements(liveData?.items ?? []);
+
+  const baseStats = statsGlobales();
+  const stats = {
+    ...baseStats,
+    total: baseStats.total + liveSignalements.length,
+    detruits:
+      baseStats.detruits +
+      liveSignalements.filter((s) => s.statut === "detruit").length,
+    actifs:
+      baseStats.actifs +
+      liveSignalements.filter((s) => s.statut !== "detruit").length,
+    communesImpactees:
+      baseStats.communesImpactees +
+      new Set(liveSignalements.map((s) => s.commune).filter(Boolean)).size,
+  };
   const hasData = stats.total > 0;
-  const lastUpdate = new Date(SIGNALEMENTS[0]?.date ?? new Date().toISOString());
+  const lastUpdate = new Date(
+    liveSignalements[0]?.date ?? SIGNALEMENTS[0]?.date ?? new Date().toISOString(),
+  );
   const [minutesAgo, setMinutesAgo] = useState<number | null>(null);
   useEffect(() => {
     if (!hasData) return;
@@ -222,7 +248,7 @@ function HomePage() {
           </div>
 
           <div className="mt-8">
-            <HornetMap signalements={SIGNALEMENTS} />
+            <HornetMap signalements={liveSignalements} />
           </div>
         </div>
       </section>
@@ -271,7 +297,7 @@ function HomePage() {
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {Object.values(DEPARTEMENTS).map((d) => {
-              const sigDept = SIGNALEMENTS.filter((s) => s.departement === d.code);
+              const sigDept = liveSignalements.filter((s) => s.departement === d.code);
               const detr = sigDept.filter((s) => s.statut === "detruit").length;
               return (
                 <Link
