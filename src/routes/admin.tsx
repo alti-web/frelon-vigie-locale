@@ -15,8 +15,82 @@ export const Route = createFileRoute("/admin")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: AdminPage,
+  component: AdminGate,
+  ssr: false,
 });
+
+const ADMIN_PASSWORD = "FrelonExpress19";
+const ADMIN_STORAGE_KEY = "admin-auth-v1";
+
+function AdminGate() {
+  const [authed, setAuthed] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return sessionStorage.getItem(ADMIN_STORAGE_KEY) === "ok";
+  });
+  const [pwd, setPwd] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  if (authed) {
+    return (
+      <>
+        <div className="container-edit pt-6">
+          <button
+            onClick={() => {
+              sessionStorage.removeItem(ADMIN_STORAGE_KEY);
+              setAuthed(false);
+            }}
+            className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground hover:text-foreground"
+          >
+            ← Se déconnecter
+          </button>
+        </div>
+        <AdminPage />
+      </>
+    );
+  }
+
+  return (
+    <div className="container-edit flex min-h-[60vh] items-center justify-center py-12">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (pwd === ADMIN_PASSWORD) {
+            sessionStorage.setItem(ADMIN_STORAGE_KEY, "ok");
+            setAuthed(true);
+            setError(null);
+          } else {
+            setError("Mot de passe incorrect.");
+          }
+        }}
+        className="w-full max-w-sm space-y-4 rounded-lg border border-border p-6"
+      >
+        <div>
+          <h1 className="font-display text-2xl font-semibold tracking-tight">
+            Accès administration
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Entrez le mot de passe pour accéder à la modération.
+          </p>
+        </div>
+        <input
+          type="password"
+          autoFocus
+          value={pwd}
+          onChange={(e) => setPwd(e.target.value)}
+          placeholder="Mot de passe"
+          className="w-full rounded border border-border bg-background px-3 py-2 text-sm"
+        />
+        {error && <p className="text-xs text-alert">{error}</p>}
+        <button
+          type="submit"
+          className="w-full rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background hover:opacity-90"
+        >
+          Se connecter
+        </button>
+      </form>
+    </div>
+  );
+}
 
 type Row = {
   id: string;
