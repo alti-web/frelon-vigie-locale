@@ -70,3 +70,93 @@ export const createSignalement = createServerFn({ method: "POST" })
 
     return { id: row.id, ok: true as const };
   });
+
+// ───── Lecture publique (signalements approuvés, sans PII) ─────
+export const listApprovedSignalements = createServerFn({ method: "GET" }).handler(
+  async () => {
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    const { data, error } = await supabaseAdmin
+      .from("signalements_public")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(1000);
+    if (error) {
+      console.error("[listApprovedSignalements]", error);
+      return { items: [] as PublicSignalement[] };
+    }
+    return { items: (data ?? []) as PublicSignalement[] };
+  },
+);
+
+export type PublicSignalement = {
+  id: string;
+  commune_nom: string | null;
+  commune_slug: string | null;
+  departement: "19" | "24";
+  lat: number | null;
+  lng: number | null;
+  type: "primaire" | "secondaire" | "piege" | "attaque-rucher";
+  hauteur: string | null;
+  diametre: string | null;
+  statut: "signale" | "confirme" | "detruit";
+  created_at: string;
+};
+
+// ───── Admin (sans auth — protection par URL uniquement) ─────
+export const listAllSignalements = createServerFn({ method: "GET" }).handler(
+  async () => {
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    const { data, error } = await supabaseAdmin
+      .from("signalements")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(2000);
+    if (error) throw new Error(error.message);
+    return { items: data ?? [] };
+  },
+);
+
+const UpdateSchema = z.object({
+  id: z.string().uuid(),
+  moderation_status: z.enum(["pending", "approved", "rejected"]).optional(),
+  statut: z.enum(["signale", "confirme", "detruit"]).optional(),
+  lat: z.number().min(-90).max(90).optional().nullable(),
+  lng: z.number().min(-180).max(180).optional().nullable(),
+});
+
+export const updateSignalementAdmin = createServerFn({ method: "POST" })
+  .inputValidator((input) => UpdateSchema.parse(input))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    const { id, ...rest } = data;
+    const patch: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(rest)) {
+      if (v !== undefined) patch[k] = v;
+    }
+    const { error } = await supabaseAdmin
+      .from("signalements")
+      .update(patch)
+      .eq("id", id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+export const deleteSignalementAdmin = createServerFn({ method: "POST" })
+  .inputValidator((input) => z.object({ id: z.string().uuid() }).parse(input))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    const { error } = await supabaseAdmin
+      .from("signalements")
+      .delete()
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
