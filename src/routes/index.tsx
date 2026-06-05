@@ -52,9 +52,31 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const stats = statsGlobales();
+  const fetchPublic = useServerFn(listApprovedSignalements);
+  const { data: liveData } = useQuery({
+    queryKey: ["public-signalements"],
+    queryFn: () => fetchPublic(),
+  });
+  const liveSignalements = toSignalements(liveData?.items ?? []);
+
+  const baseStats = statsGlobales();
+  const stats = {
+    ...baseStats,
+    total: baseStats.total + liveSignalements.length,
+    detruits:
+      baseStats.detruits +
+      liveSignalements.filter((s) => s.statut === "detruit").length,
+    actifs:
+      baseStats.actifs +
+      liveSignalements.filter((s) => s.statut !== "detruit").length,
+    communesImpactees:
+      baseStats.communesImpactees +
+      new Set(liveSignalements.map((s) => s.commune).filter(Boolean)).size,
+  };
   const hasData = stats.total > 0;
-  const lastUpdate = new Date(SIGNALEMENTS[0]?.date ?? new Date().toISOString());
+  const lastUpdate = new Date(
+    liveSignalements[0]?.date ?? SIGNALEMENTS[0]?.date ?? new Date().toISOString(),
+  );
   const [minutesAgo, setMinutesAgo] = useState<number | null>(null);
   useEffect(() => {
     if (!hasData) return;
