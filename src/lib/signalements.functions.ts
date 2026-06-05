@@ -134,11 +134,17 @@ export const updateSignalementAdmin = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import(
       "@/integrations/supabase/client.server"
     );
-    const { id, ...rest } = data;
-    const patch: Record<string, unknown> = {};
-    for (const [k, v] of Object.entries(rest)) {
-      if (v !== undefined) patch[k] = v;
-    }
+    const { id, moderation_status, statut, lat, lng } = data;
+    const patch: {
+      moderation_status?: "pending" | "approved" | "rejected";
+      statut?: "signale" | "confirme" | "detruit";
+      lat?: number | null;
+      lng?: number | null;
+    } = {};
+    if (moderation_status !== undefined) patch.moderation_status = moderation_status;
+    if (statut !== undefined) patch.statut = statut;
+    if (lat !== undefined) patch.lat = lat;
+    if (lng !== undefined) patch.lng = lng;
     const { error } = await supabaseAdmin
       .from("signalements")
       .update(patch)
