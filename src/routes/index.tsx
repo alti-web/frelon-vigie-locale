@@ -20,6 +20,10 @@ import { NewsCard } from "@/components/site/NewsCard";
 import { CommuneSearch } from "@/components/site/CommuneSearch";
 import { EvolutionChart } from "@/components/site/EvolutionChart";
 import { formatNombre } from "@/lib/format";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { listApprovedSignalements } from "@/lib/signalements.functions";
+import { toSignalements } from "@/lib/signalements-mapper";
 
 export const Route = createFileRoute("/")({
   head: () => ({
