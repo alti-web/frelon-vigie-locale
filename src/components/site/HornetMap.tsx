@@ -75,7 +75,10 @@ export function HornetMap({
       if (map) map.remove();
       mapRef.current = null;
     };
-  }, [center, zoom]);
+    // Init une seule fois — center/zoom sont des valeurs initiales.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   useEffect(() => {
     if (!ready || !mapRef.current) return;
