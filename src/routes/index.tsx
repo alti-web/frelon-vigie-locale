@@ -248,7 +248,7 @@ function HomePage() {
           </div>
 
           <div className="mt-8">
-            <HornetMap signalements={SIGNALEMENTS} />
+            <HornetMap signalements={liveSignalements} />
           </div>
         </div>
       </section>
