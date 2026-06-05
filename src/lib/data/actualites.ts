@@ -21,7 +21,7 @@ export const ACTUALITES: Actualite[] = [
     commune: "Beaulieu-sur-Dordogne",
     communeSlug: "beaulieu-sur-dordogne",
     departement: "19",
-    date: j(0),
+    date: "2025-11-28T08:00:00.000Z",
     categorie: "intervention",
     duree: "2 min",
   },
@@ -33,7 +33,7 @@ export const ACTUALITES: Actualite[] = [
     commune: "Terrasson-Lavilledieu",
     communeSlug: "terrasson-lavilledieu",
     departement: "24",
-    date: j(1),
+    date: "2025-09-15T08:00:00.000Z",
     categorie: "apiculture",
     duree: "3 min",
   },
@@ -45,7 +45,7 @@ export const ACTUALITES: Actualite[] = [
     commune: "Bergerac",
     communeSlug: "bergerac",
     departement: "24",
-    date: j(3),
+    date: "2025-10-20T08:00:00.000Z",
     categorie: "veille",
     duree: "4 min",
   },
@@ -59,31 +59,8 @@ export const ACTUALITES: Actualite[] = [
     categorie: "reglementation",
     duree: "5 min",
   },
-  {
-    slug: "perigueux-formation-elus",
-    titre: "Périgueux : formation des élus à la coordination des destructions",
-    chapo:
-      "Une journée d'information à destination des secrétaires de mairie et adjoints à la sécurité s'est tenue mercredi à la préfecture. Objectif : harmoniser les protocoles entre les communes.",
-    commune: "Périgueux",
-    communeSlug: "perigueux",
-    departement: "24",
-    date: j(7),
-    categorie: "reglementation",
-    duree: "3 min",
-  },
-  {
-    slug: "brive-augmentation-signalements",
-    titre: "Brive-la-Gaillarde : +18 % de signalements sur douze mois",
-    chapo:
-      "Le bilan annuel de l'agglomération briviste fait état d'une progression marquée. Les quartiers résidentiels du nord et de l'est concentrent l'essentiel des nouveaux nids.",
-    commune: "Brive-la-Gaillarde",
-    communeSlug: "brive-la-gaillarde",
-    departement: "19",
-    date: j(10),
-    categorie: "veille",
-    duree: "4 min",
-  },
 ];
+
 
 export function actualitesParCommune(slug: string): Actualite[] {
   return ACTUALITES.filter((a) => a.communeSlug === slug);

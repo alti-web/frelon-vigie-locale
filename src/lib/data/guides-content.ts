@@ -304,16 +304,4 @@ export const ACTU_CONTENT: Record<string, string[]> = {
     "Une formation gratuite est proposée aux référents communaux le 5 février à Brive et le 7 février à Tulle. Inscription via la FREDON ou directement auprès du GDSA 19.",
     "L'Observatoire publiera en continu sur cette page le bilan de la campagne, commune par commune, avec le nombre de fondatrices capturées.",
   ],
-  "perigueux-formation-elus": [
-    "Une trentaine d'élus et d'agents municipaux issus de douze communes de l'agglomération du Grand Périgueux ont participé à une journée d'information à la préfecture de la Dordogne.",
-    "Au programme : reconnaissance de l'espèce, cadre juridique de la destruction (qui paie quoi, qui décide), procédures à mettre en place en mairie, communication aux administrés et coordination avec les désinsectiseurs.",
-    "L'objectif affiché par la préfecture est l'harmonisation des protocoles communaux d'ici 2027, avec en ligne de mire la mise en place d'un guichet unique de signalement à l'échelle départementale.",
-    "Une seconde session est programmée à Bergerac en janvier 2026.",
-  ],
-  "brive-augmentation-signalements": [
-    "Le bilan annuel de l'agglomération Brive Communauté, présenté en commission environnement, fait état d'une progression de 18 % du nombre de signalements en douze mois sur le territoire de la ville centre.",
-    "Cette progression est cohérente avec celle observée à l'échelle du département (+15 % en moyenne) et confirme une dynamique d'expansion désormais bien installée sur le bassin briviste.",
-    "Les quartiers résidentiels du nord (Bouquet, Rivet) et de l'est (Tujac, Pouret) concentrent l'essentiel des nouveaux nids, en lien probable avec la densité de jardins boisés et l'absence de coordination historique du piégeage de printemps sur ces secteurs.",
-    "La municipalité annonce pour 2026 le doublement du nombre de pièges sélectifs distribués aux particuliers et la mise en place d'un référent dédié au sein des services techniques.",
-  ],
 };
