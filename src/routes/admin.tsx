@@ -61,8 +61,15 @@ function AdminPage() {
     rejected: items.filter((r) => r.moderation_status === "rejected").length,
   };
 
+  type UpdateVars = {
+    id: string;
+    moderation_status?: Row["moderation_status"];
+    statut?: Row["statut"];
+    lat?: number | null;
+    lng?: number | null;
+  };
   const mUpdate = useMutation({
-    mutationFn: (vars: Parameters<typeof update>[0]["data"]) => update({ data: vars }),
+    mutationFn: (vars: UpdateVars) => update({ data: vars }),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin-signalements"] });
       qc.invalidateQueries({ queryKey: ["public-signalements"] });
